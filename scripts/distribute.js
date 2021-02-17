@@ -9,7 +9,7 @@ const LEDGER_PATH = 'data/ledger.json';
 
 const DAPPNODE_BOT_DISCORD_ID = "mO3FKOU7dkON3XTyKan53Q";
 const MINIMAL_PAN_BALANCE = 60000000000000000000
-const TOKEN = 'PAN'
+const TOKEN = 'BZZ'
 
 const nodePrefix = sourcecred.core.graph.NodeAddress.fromParts([
     "sourcecred",
@@ -53,7 +53,7 @@ const nodePrefix = sourcecred.core.graph.NodeAddress.fromParts([
             console.log(`Account ${account.identity.name} has been deactivated`)
             return
         }
-        
+
         const amount = zksync.utils.closestPackableTransactionAmount(account.balance);
         try {
             const transfer = await syncWallet.syncTransfer({
@@ -63,11 +63,11 @@ const nodePrefix = sourcecred.core.graph.NodeAddress.fromParts([
             });
 
             const transferReceipt = await transfer.awaitReceipt();
-            if(!transferReceipt || !transferReceipt.executed || !transferReceipt.success) {
+            if (!transferReceipt || !transferReceipt.executed || !transferReceipt.success) {
                 console.error(transferReceipt.failReason)
                 process.exit(1);
             }
-            console.log("Successfully sent to: " + account.identity.name + " " + amount.toString() + " " + process.env.TOKEN + " : " + "https://zkscan.io/transactions/" + transfer.txHash )
+            console.log("Successfully sent to: " + account.identity.name + " " + amount.toString() + " " + process.env.TOKEN + " : " + "https://zkscan.io/transactions/" + transfer.txHash)
             ledger.transferGrain({
                 to: DAPPNODE_BOT_DISCORD_ID,
                 from: account.identity.id,

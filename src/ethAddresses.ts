@@ -16,15 +16,15 @@ export const discordToken = process.env.SOURCECRED_DISCORD_TOKEN;
 const FILTER_TEXT = (message: Message) => /^[Cc]laim to 0x[a-fA-F0-9]{40}$/.test(message.content) || /^[Uu]nclaim$/.test(message.content);
 
 const main = async () => {
-    
+
     const client = new Discord.Client();
     await client.login(discordToken);
 
     // wait to get the data
     await delay(1000);
 
-    // DAppNode ctchannel = 747647430450741309
-    let ctChannel = await client.channels.fetch('788165053169401866') as TextChannel;
+    // Swarm ctchannel = 811693502546182174
+    let ctChannel = await client.channels.fetch('811693502546182174') as TextChannel;
     let messages = (await ctChannel.messages.fetch()).filter(FILTER_TEXT).sort((x, y) => {
         return x.createdTimestamp - y.createdTimestamp
     });
@@ -59,7 +59,7 @@ const main = async () => {
             description: "ethereum/" + prevEthAddressAlias.length + "/" + ethAddress,
             address: address
         }
-        console.log("added: " + alias.description + " to: " + linkedAccount.identity.name )
+        console.log("added: " + alias.description + " to: " + linkedAccount.identity.name)
         ledger.addAlias(linkedAccount.identity.id, alias);
     });
 
